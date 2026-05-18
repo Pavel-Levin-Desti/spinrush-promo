@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UTM Utility — Demo · SpinRush</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f1117;
+      color: #e8e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      padding: 2.5rem 1.5rem;
+      line-height: 1.6;
+    }
+
+    h1 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
+    .subtitle { color: #9a9ab0; font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+    .demo-section {
+      background: #1a1d2e;
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      max-width: 760px;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f0a500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      color: #9a9ab0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+
+    pre {
+      background: #0f1117;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+      color: #c8f0a0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-bottom: 1rem;
+    }
+
+    .link-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+    .link-list li { font-size: 0.9rem; }
+    .link-list a { color: #9a9ab0; }
+    .link-list a:hover { color: #fff; }
+
+    .badge {
+      display: inline-block;
+      background: #f0a500;
+      color: #0f1117;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.6rem;
+      border-radius: 50px;
+      margin-left: 0.4rem;
+    }
+
+    .note { font-size: 0.82rem; color: #6b6b85; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+
+  <h1>🎰 UTM Utility — Demo</h1>
+  <p class="subtitle">Live output from <code>tracking/utm.js</code></p>
+
+  <!-- ── 1. buildUTM ── -->
+  <div class="demo-section">
+    <h2>1 · buildUTM(baseUrl, params)</h2>
+
+    <p class="label">Input — baseUrl</p>
+    <pre id="out-build-input-url"></pre>
+
+    <p class="label">Input — params</p>
+    <pre id="out-build-input-params"></pre>
+
+    <p class="label">Output — built URL</p>
+    <pre id="out-build-result"></pre>
+
+    <p class="label">Edge case — URL already has a query string</p>
+    <pre id="out-build-merge"></pre>
+  </div>
+
+  <!-- ── 2. getUTMFromURL ── -->
+  <div class="demo-section">
+    <h2>2 · getUTMFromURL(url)</h2>
+
+    <p class="label">Parsed from a simulated URL</p>
+    <pre id="out-get-simulated"></pre>
+
+    <p class="label">Parsed from current page URL</p>
+    <pre id="out-get-current"></pre>
+
+    <p class="note">
+      💡 Append UTM params to this page's URL to see them picked up — e.g.<br>
+      <code>demo.html?utm_source=email&utm_campaign=welcome-bonus</code>
+    </p>
+  </div>
+
+  <!-- ── 3. appendUTMToLinks ── -->
+  <div class="demo-section">
+    <h2>3 · appendUTMToLinks(params)</h2>
+
+    <p class="label">Tracked links (data-track="true") — before</p>
+    <ul class="link-list" id="tracked-links">
+      <li>
+        <a href="https://spinrush.com/promo" data-track="true">spinrush.com/promo</a>
+        <span class="badge">tracked</span>
+      </li>
+      <li>
+        <a href="https://spinrush.com/slots" data-track="true">spinrush.com/slots</a>
+        <span class="badge">tracked</span>
+      </li>
+      <li>
+        <!-- Not tracked — should be skipped -->
+        <a href="https://spinrush.com/about">spinrush.com/about</a>
+        <span style="font-size:0.75rem;color:#6b6b85;margin-left:0.4rem;">not tracked</span>
+      </li>
+      <li>
+        <!-- Hash-only — should be skipped -->
+        <a href="#" data-track="true">href="#" (skipped)</a>
+        <span class="badge">tracked</span>
+      </li>
+    </ul>
+
+    <p class="label">appendUTMToLinks() result</p>
+    <pre id="out-append-count"></pre>
+
+    <p class="label">Href values after append</p>
+    <pre id="out-append-hrefs"></pre>
+  </div>
+
+
+  <script src="utm.js"></script>
+  <script>
+    // ── 1. buildUTM demo ──────────────────────────────────────────────────
+    const buildBase = 'https://spinrush.com/promo';
+    const buildParams = {
+      utm_source:   'email',
+      utm_medium:   'cpc',
+      utm_campaign: 'welcome-bonus',
+      utm_content:  'hero-cta',
+    };
+
+    document.getElementById('out-build-input-url').textContent    = buildBase;
+    document.getElementById('out-build-input-params').textContent = JSON.stringify(buildParams, null, 2);
+    document.getElementById('out-build-result').textContent       = buildUTM(buildBase, buildParams);
+
+    // Edge case: merge with existing query string
+    const mergeBase = 'https://spinrush.com/promo?ref=partner&utm_source=old';
+    document.getElementById('out-build-merge').textContent =
+      'Input:  ' + mergeBase + '\n' +
+      'Output: ' + buildUTM(mergeBase, { utm_source: 'email', utm_campaign: 'welcome-bonus' });
+
+
+    // ── 2. getUTMFromURL demo ─────────────────────────────────────────────
+    const simulatedURL = 'https://spinrush.com/?utm_source=email&utm_medium=newsletter&utm_campaign=welcome-bonus&utm_content=hero';
+    document.getElementById('out-get-simulated').textContent =
+      'URL:    ' + simulatedURL + '\n' +
+      'Result: ' + JSON.stringify(getUTMFromURL(simulatedURL), null, 2);
+
+    const currentResult = getUTMFromURL();
+    document.getElementById('out-get-current').textContent =
+      Object.keys(currentResult).length
+        ? JSON.stringify(currentResult, null, 2)
+        : '(no UTM params in current page URL)';
+
+
+    // ── 3. appendUTMToLinks demo ──────────────────────────────────────────
+    const appendParams = {
+      utm_source:   'email',
+      utm_medium:   'newsletter',
+      utm_campaign: 'welcome-bonus',
+    };
+
+    const count = appendUTMToLinks(appendParams);
+    document.getElementById('out-append-count').textContent =
+      count + ' link(s) updated with params:\n' + JSON.stringify(appendParams, null, 2);
+
+    // Show resulting href for every link in the list
+    const linkReport = Array.from(
+      document.querySelectorAll('#tracked-links a')
+    ).map((a) => {
+      const tracked = a.dataset.track === 'true';
+      return (tracked ? '[tracked] ' : '[skipped] ') + a.getAttribute('href');
+    }).join('\n');
+
+    document.getElementById('out-append-hrefs').textContent = linkReport;
+  </script>
+
+</body>
+</html>
