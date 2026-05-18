@@ -1,0 +1,313 @@
+/* ── Reset & base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #0f1117;
+  color: #e8e8f0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 2rem;
+  z-index: 100;
+}
+
+header a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6rem 1.5rem 3rem;
+  background: linear-gradient(160deg, #1a1d2e 0%, #0f1117 60%, #1c1229 100%);
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  max-width: 720px;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #9a9ab0;
+  max-width: 540px;
+  margin-bottom: 2.5rem;
+}
+
+/* ── CTA button ── */
+.hero a[role="button"] {
+  display: inline-block;
+  background-color: #f0a500;
+  color: #0f1117;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.9rem 2.25rem;
+  border-radius: 50px;
+  letter-spacing: 0.02em;
+  transition: background-color 0.15s ease;
+}
+
+.hero a[role="button"]:hover,
+.hero a[role="button"]:focus-visible {
+  background-color: #fbb730;
+  outline: 3px solid #fbb730;
+  outline-offset: 3px;
+}
+
+/* ── Features ── */
+.features {
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 3rem;
+}
+
+/* ── Cards ── */
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: #1a1d2e;
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  flex: 1 1 260px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.card-icon {
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #9a9ab0;
+  line-height: 1.6;
+}
+
+/* ── How It Works ── */
+.how-it-works {
+  background-color: #13151f;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 3rem;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  max-width: 900px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 200px;
+  max-width: 240px;
+  padding: 1rem;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #f0a500;
+  color: #0f1117;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.step h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 0.9rem;
+  color: #9a9ab0;
+  line-height: 1.6;
+}
+
+.step-arrow {
+  font-size: 1.5rem;
+  color: #f0a500;
+  flex-shrink: 0;
+  padding: 0 0.25rem;
+  margin-bottom: 3.5rem; /* align vertically with step numbers */
+}
+
+/* ── Footer ── */
+.site-footer {
+  background-color: #090b10;
+  border-top: 1px solid #1e2130;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.footer-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badge-18plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #f0a500;
+  color: #f0a500;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 50px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.footer-responsible {
+  font-size: 0.85rem;
+  color: #6b6b85;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+}
+
+.footer-links a {
+  color: #6b6b85;
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: #c0c0d0;
+}
+
+.footer-divider {
+  color: #2e3045;
+  font-size: 0.82rem;
+  user-select: none;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: #45455a;
+}
+
+/* ── Responsive: stack cards on narrow screens ── */
+@media (max-width: 600px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .step-arrow {
+    transform: rotate(90deg);
+    margin-bottom: 0;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-divider {
+    display: none;
+  }
+}
