@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="../tracking/utm.js"></script>
     <script src="../ab-test/ab.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>  
   </head>
   <body>
 
@@ -28,6 +29,26 @@
         <a class="hero-cta" data-ab="cta-copy" data-variant="challenger" href="#claim" role="button">
           Get 100 Free Spins &rarr;
         </a>
+      </section>
+
+      <section class="email-capture" id="claim" aria-labelledby="capture-heading">
+        <h2 id="capture-heading">Get Your Bonus Delivered</h2>
+        <p>Drop your email and we'll send the full offer straight to your inbox.</p>
+
+        <form id="email-form" novalidate>
+          <input
+            id="email-input"
+            type="email"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+            aria-label="Your email address"
+          />
+          <button type="submit">Send Me the Bonus &rarr;</button>
+        </form>
+
+        <p id="form-success" role="status" aria-live="polite">🎉 Check your inbox!</p>
+        <p id="form-error" role="alert" aria-live="assertive">Something went wrong. Try again.</p>
       </section>
 
       <section class="features" id="features" aria-labelledby="features-heading">
@@ -106,6 +127,32 @@
       <p class="footer-copy">&copy; 2025 SpinRush Casino. All rights reserved.</p>
 
     </footer>
+
+<script>
+  emailjs.init('Q_BtEqUs0W32tdwE7');
+
+  function sendBonusEmail(email) {
+    return emailjs.send('service_si0yhdv', 'template_v5m4yxm', {
+      email: email
+    });
+  }
+
+  document.getElementById('email-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('email-input').value;
+    var btn = this.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    sendBonusEmail(email).then(function() {
+      document.getElementById('form-success').style.display = 'block';
+      document.getElementById('email-form').style.display = 'none';
+    }).catch(function() {
+      document.getElementById('form-error').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Send Me the Bonus →';
+    });
+  });
+</script>
 
     <script>
       (function () {

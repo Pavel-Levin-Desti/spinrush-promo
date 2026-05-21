@@ -83,6 +83,96 @@ header a {
   outline-offset: 3px;
 }
 
+/* ── Email capture ── */
+.email-capture {
+  background-color: #13151f;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.email-capture h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.email-capture > p {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #9a9ab0;
+  margin-bottom: 2rem;
+}
+
+#email-form {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 480px;
+  margin: 0 auto 1.25rem;
+}
+
+#email-input {
+  flex: 1 1 220px;
+  background-color: #1a1d2e;
+  border: 1px solid #2e3045;
+  color: #e8e8f0;
+  font-size: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 50px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+#email-input::placeholder {
+  color: #6b6b85;
+}
+
+#email-input:focus {
+  border-color: #f0a500;
+}
+
+#email-form button {
+  flex-shrink: 0;
+  background-color: #f0a500;
+  color: #0f1117;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.85rem 1.75rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background-color 0.15s ease;
+}
+
+#email-form button:hover:not(:disabled),
+#email-form button:focus-visible:not(:disabled) {
+  background-color: #fbb730;
+  outline: 3px solid #fbb730;
+  outline-offset: 3px;
+}
+
+#email-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#form-success {
+  display: none;
+  color: #6fcf97;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+#form-error {
+  display: none;
+  color: #eb5757;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
 /* ── Features ── */
 .features {
   padding: 5rem 2rem;
