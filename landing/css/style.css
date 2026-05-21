@@ -63,7 +63,7 @@ header a {
 }
 
 /* ── CTA button ── */
-.hero a[role="button"] {
+.hero-cta {
   display: inline-block;
   background-color: #f0a500;
   color: #0f1117;
@@ -76,8 +76,8 @@ header a {
   transition: background-color 0.15s ease;
 }
 
-.hero a[role="button"]:hover,
-.hero a[role="button"]:focus-visible {
+.hero-cta:hover,
+.hero-cta:focus-visible {
   background-color: #fbb730;
   outline: 3px solid #fbb730;
   outline-offset: 3px;

@@ -6,6 +6,8 @@
     <meta name="description" content="SpinRush Casino — Claim your welcome bonus and start winning today." />
     <title>SpinRush Casino | Spin. Rush. Win.</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script src="../tracking/utm.js"></script>
+    <script src="../ab-test/ab.js"></script>
   </head>
   <body>
 
@@ -20,7 +22,12 @@
       <section class="hero" aria-labelledby="hero-heading">
         <h1 id="hero-heading">Get 100 Free Spins on Your First Deposit</h1>
         <p>Join thousands of players already winning big. Deposit today and we'll double your first €50 — no wagering tricks, no fine-print traps.</p>
-        <a href="#claim" role="button">Claim Your Bonus Now</a>
+        <a class="hero-cta" data-ab="cta-copy" data-variant="control" href="#claim" role="button">
+          Claim Your Bonus Now
+        </a>
+        <a class="hero-cta" data-ab="cta-copy" data-variant="challenger" href="#claim" role="button">
+          Get 100 Free Spins &rarr;
+        </a>
       </section>
 
       <section class="features" id="features" aria-labelledby="features-heading">
@@ -99,6 +106,25 @@
       <p class="footer-copy">&copy; 2025 SpinRush Casino. All rights reserved.</p>
 
     </footer>
+
+    <script>
+      (function () {
+        // 1. Read any UTM params from the current URL
+        var utmParams = getUTMFromURL();
+
+        // 2. Assign + show the correct CTA variant
+        var variant = applyVariant('cta-copy', ['control', 'challenger']);
+
+        // 3. Track assignment, merged with UTM context
+        var payload = Object.assign({ test: 'cta-copy', variant: variant }, utmParams);
+        console.log('[A/B]', payload);
+
+        // 4. If UTM params are present, log them separately for visibility
+        if (Object.keys(utmParams).length > 0) {
+          console.log('[UTM]', utmParams);
+        }
+      })();
+    </script>
 
   </body>
 </html>
